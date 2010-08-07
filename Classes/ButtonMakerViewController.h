@@ -8,18 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ButtonMakerViewController : UIViewController {
+@interface ButtonMakerViewController : UIViewController <UITextFieldDelegate> {
 	UISlider *redSlider;
 	UISlider *greenSlider;
 	UISlider *blueSlider;
 	UISlider *widthSlider;
 	UISlider *heightSlider;
 	
-	UILabel *redValueLabel;
-	UILabel *greenValueLabel;
-	UILabel *blueValueLabel;
-	UILabel *heightLabel;
-	UILabel *widthLabel;
+	UITextField *redValueField;
+	UITextField *greenValueField;
+	UITextField *blueValueField;
+	UITextField *heightField;
+	UITextField *widthField;
 	
 	UIButton *theButton;
 }
@@ -30,14 +30,15 @@
 @property(nonatomic, retain) IBOutlet UISlider *widthSlider;
 @property(nonatomic, retain) IBOutlet UISlider *heightSlider;
 
-@property(nonatomic, retain) IBOutlet UILabel *redValueLabel;
-@property(nonatomic, retain) IBOutlet UILabel *greenValueLabel;
-@property(nonatomic, retain) IBOutlet UILabel *blueValueLabel;
-@property(nonatomic, retain) IBOutlet UILabel *heightLabel;
-@property(nonatomic, retain) IBOutlet UILabel *widthLabel;
+@property(nonatomic, retain) IBOutlet UITextField *redValueField;
+@property(nonatomic, retain) IBOutlet UITextField *greenValueField;
+@property(nonatomic, retain) IBOutlet UITextField *blueValueField;
+@property(nonatomic, retain) IBOutlet UITextField *heightField;
+@property(nonatomic, retain) IBOutlet UITextField *widthField;
 
 -(IBAction) colorSliderChanged:(id)sender;
 -(IBAction) sizeSlideChanged:(id)sender;
 -(IBAction) saveTapped:(id)sender;
+
 @end
 

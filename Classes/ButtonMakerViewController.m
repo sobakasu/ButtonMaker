@@ -16,11 +16,11 @@
 @synthesize widthSlider;
 @synthesize heightSlider;
 
-@synthesize redValueLabel;
-@synthesize greenValueLabel;
-@synthesize blueValueLabel;
-@synthesize heightLabel;
-@synthesize widthLabel;
+@synthesize redValueField;
+@synthesize greenValueField;
+@synthesize blueValueField;
+@synthesize heightField;
+@synthesize widthField;
 
 
 /*
@@ -99,15 +99,15 @@
 }
 
 -(IBAction) colorSliderChanged:(id)sender {
-	// Update all the color labels
-	redValueLabel.text = [NSString stringWithFormat:@"%.0f", roundf(redSlider.value)];
-	blueValueLabel.text = [NSString stringWithFormat:@"%.0f", roundf(blueSlider.value)];
-	greenValueLabel.text = [NSString stringWithFormat:@"%.0f", roundf(greenSlider.value)];
+	// Update all the color Fields
+	redValueField.text = [NSString stringWithFormat:@"%d", (int)roundf(redSlider.value)];
+	blueValueField.text = [NSString stringWithFormat:@"%d", (int)roundf(blueSlider.value)];
+	greenValueField.text = [NSString stringWithFormat:@"%d", (int)roundf(greenSlider.value)];
 	[self updateButton];
 }
 -(IBAction) sizeSlideChanged:(id)sender {
-	widthLabel.text = [NSString stringWithFormat:@"%.0f", roundf(widthSlider.value)];
-	heightLabel.text = [NSString stringWithFormat:@"%.0f", roundf(heightSlider.value)];
+	widthField.text = [NSString stringWithFormat:@"%d", (int)roundf(widthSlider.value)];
+	heightField.text = [NSString stringWithFormat:@"%d", (int)roundf(heightSlider.value)];
 	[self updateButton];
 }
 
@@ -155,6 +155,28 @@
 	NSString *msg = [NSString stringWithFormat:@"Wrote files to %@", documentsDirectory];
 	UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:@"Done" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 	[alertView show];
+}
+
+#pragma mark UITextFieldDelegate methods
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	UISlider *slider;
+	
+	if(textField == redValueField) slider = redSlider;
+	else if(textField == greenValueField) slider = greenSlider;
+	else if(textField == blueValueField) slider = blueSlider;
+	else if(textField == widthField) slider = widthSlider;
+	else if(textField == heightField) slider = heightSlider;
+	
+	if(slider) {
+		slider.value = [textField.text intValue];
+		[self updateButton];
+	}
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[textField resignFirstResponder];
+	return YES;
 }
 
 @end
